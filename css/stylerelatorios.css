@@ -1,0 +1,189 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+    --bg:#08090d;
+    --p1:#0e1018;
+    --p2:#13161f;
+    --p3:#191d28;
+    --border:#1d2235;
+    --border2:#252a3a;
+    --g:#e8f020;       /* Alterado para amarelo para combinar com o botão Aplicar */
+    --g2:#7c3aed;     
+    --g3:#10b981;     
+    --text:#e2e8f8;
+    --muted:#4a526a;
+
+    /* Variáveis de atalho que o seu código usa abaixo */
+    --a1: var(--g);    
+    --a2: var(--g3);   
+    --a3: var(--g2);   
+    --s1: var(--p1);   
+    --s2: var(--p2);   
+}
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Mono',monospace;
+    min-height:100vh;
+    padding:40px 28px 60px;
+}
+
+/* scanline overlay */
+body::after{
+    content:'';
+    position:fixed;inset:0;
+    background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.07) 2px,rgba(0,0,0,.07) 4px);
+    pointer-events:none;z-index:999;
+}
+
+.container{max-width:1100px;margin:0 auto}
+
+/* ── Header ── */
+.header{margin-bottom:48px;animation:fd .6s ease both}
+.eyebrow{font-size:10px;letter-spacing:.3em;color:var(--a1);text-transform:uppercase;margin-bottom:14px}
+h1{
+    font-family:'Unbounded',sans-serif;
+    font-size:clamp(1.8rem,5vw,3rem);
+    font-weight:900;
+    line-height:1;
+    letter-spacing:-.02em;
+}
+h1 em{font-style:normal;color:var(--a1)}
+.subtitle{margin-top:14px;font-size:12px;color:var(--muted);letter-spacing:.05em}
+
+/* ── Filtros ── */
+.filters{
+    display:flex;gap:12px;flex-wrap:wrap;
+    margin-bottom:36px;
+    animation:fd .6s .08s ease both;
+}
+.filters select{
+    background:var(--s1);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:10px 16px;
+    color:var(--text);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    outline:none;
+    cursor:pointer;
+    transition:border-color .2s;
+}
+.filters select:focus{border-color:var(--a1)}
+.filters select option{background:#0c1018}
+.btn-go{
+    background:var(--a1);
+    color:#070a10;
+    border:none;
+    border-radius:6px;
+    padding:10px 22px;
+    font-family:'Unbounded',monospace;
+    font-weight:700;
+    font-size:11px;
+    cursor:pointer;
+    letter-spacing:.05em;
+    transition:opacity .2s;
+}
+.btn-go:hover{opacity:.85}
+
+/* ── KPI Cards ── */
+.kpis{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;
+    margin-bottom:36px;
+    animation:fd .6s .14s ease both;
+}
+.kpi{
+    background:var(--s1);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:22px 24px;
+    position:relative;
+    overflow:hidden;
+}
+.kpi::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:2px;
+}
+.kpi.k1::before{background:var(--a1)}
+.kpi.k2::before{background:var(--a2)}
+.kpi.k3::before{background:var(--a3)}
+.kpi-val{
+    font-family:'Unbounded',sans-serif;
+    font-size:2.4rem;
+    font-weight:900;
+    line-height:1;
+    margin-bottom:6px;
+}
+.kpi.k1 .kpi-val{color:var(--a1)}
+.kpi.k2 .kpi-val{color:var(--a2)}
+.kpi.k3 .kpi-val{color:var(--a3)}
+.kpi-label{font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+
+/* ── Charts ── */
+.charts{display:grid;gap:20px}
+.chart-card{
+    background:var(--s1);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:28px;
+    animation:fd .6s .2s ease both;
+}
+.chart-card.tall{min-height:340px}
+.chart-head{
+    display:flex;align-items:baseline;gap:12px;
+    margin-bottom:24px;
+}
+.chart-title{
+    font-family:'Unbounded',sans-serif;
+    font-size:14px;font-weight:700;
+}
+.chart-sub{font-size:10px;color:var(--muted);letter-spacing:.1em}
+.chart-wrap{position:relative;width:100%}
+
+/* Grid 2 col */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+
+/* ── Tabela resumo ── */
+.table-card{
+    background:var(--s1);
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+    animation:fd .6s .3s ease both;
+}
+.table-card table{width:100%;border-collapse:collapse}
+.table-card thead th{
+    padding:12px 20px;
+    font-size:9px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-align:left;
+    border-bottom:1px solid var(--border);
+}
+.table-card tbody tr{border-top:1px solid var(--border);transition:background .15s}
+.table-card tbody tr:hover{background:var(--s2)}
+.table-card td{padding:12px 20px;font-size:12px}
+.td-label{color:var(--text);font-weight:500}
+.td-num{color:var(--a2);font-weight:700;text-align:right}
+.td-bar-wrap{width:40%;padding-right:20px}
+.td-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.td-bar-fill{height:100%;background:var(--a2);border-radius:2px;transition:width .4s}
+
+/* ── Seção titles ── */
+.section-title{
+    font-family:'Unbounded',sans-serif;
+    font-size:11px;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:16px;
+    margin-top:36px;
+    padding-left:4px;
+    border-left:3px solid var(--a1);
+    padding-left:12px;
+}
+
+@keyframes fd{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
